@@ -23,5 +23,10 @@ public class Main {
         } catch (TransferException e) {
             System.out.println("Unable to make transfer: " + e.getLocalizedMessage());
         }
+
+        System.out.println(company.getTotalBalanceInCurrency(0));
+        for (Transfer transfer : company.getTransfersBiggerThan(1000.0)) {
+            System.out.println(transfer);
+        }
     }
 }

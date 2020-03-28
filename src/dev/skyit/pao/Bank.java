@@ -2,6 +2,7 @@ package dev.skyit.pao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 public class Bank implements BankIFace {
@@ -53,6 +54,7 @@ public class Bank implements BankIFace {
         clients.add(client);
     }
 
+
     public Client getClientById(Integer id) {
         for (Client client : clients) {
             if (client.getId().equals(id)) return client;
@@ -60,4 +62,11 @@ public class Bank implements BankIFace {
         return null;
     }
 
+    public void removeClient(Integer clientId) {
+        Iterator it = clients.iterator();
+        while (it.hasNext()) {
+            Integer id = ((Client) it.next()).getId();
+            if (id.equals(clientId)) it.remove();
+        }
+    }
 }
