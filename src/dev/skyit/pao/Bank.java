@@ -1,11 +1,13 @@
 package dev.skyit.pao;
 
+import dev.skyit.pao.exceptions.TransferException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-public class Bank implements BankIFace {
+public class Bank implements BankIFace, ServiceIFace {
 
     private List<Currency> currencyList = new ArrayList<>();
     private HashMap<Pair, Double> rates = new HashMap<>();
@@ -50,11 +52,13 @@ public class Bank implements BankIFace {
         return rates.get(new Pair(sourceCurrency, destinationCurrency));
     }
 
+    @Override
     public void addClient(Client client){
         clients.add(client);
     }
 
 
+    @Override
     public Client getClientById(Integer id) {
         for (Client client : clients) {
             if (client.getId().equals(id)) return client;
@@ -62,6 +66,32 @@ public class Bank implements BankIFace {
         return null;
     }
 
+    @Override
+    public void registerAccountForClient(Integer clientId, Integer currencyId) {
+        getClientById(clientId).registerAccount(currencyId);
+    }
+
+    @Override
+    public void makeTransferForClient(Integer clientId, Integer sourceId, Integer targetId, Double amount) throws TransferException {
+        getClientById(clientId).makeTransfer(sourceId, targetId, amount);
+    }
+
+    @Override
+    public Transfer getLastTransfer(Integer clientId) {
+        return getClientById(clientId).getLastTransfer();
+    }
+
+    @Override
+    public Double getTotalBalanceInCurrency(Integer clientId, Integer currencyId) {
+        return getClientById(clientId).getTotalBalanceInCurrency(currencyId);
+    }
+
+    @Override
+    public List<Transfer> getTransfersBiggerThan(Integer clientId, Double amount) {
+        return getClientById(clientId).getTransfersBiggerThan(amount);
+    }
+
+    @Override
     public void removeClient(Integer clientId) {
         Iterator it = clients.iterator();
         while (it.hasNext()) {
