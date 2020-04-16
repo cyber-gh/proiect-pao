@@ -1,4 +1,6 @@
-package dev.skyit.pao;
+package dev.skyit.pao.api;
+
+import dev.skyit.pao.utility.Currency;
 
 public interface BankIFace {
     public Currency getCurrencyById(Integer id);

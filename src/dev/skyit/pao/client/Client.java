@@ -1,22 +1,25 @@
-package dev.skyit.pao;
+package dev.skyit.pao.client;
 
-import dev.skyit.pao.exceptions.MissingExchangeRateException;
+import dev.skyit.pao.api.BankIFace;
+import dev.skyit.pao.client.transfers.Transfer;
 import dev.skyit.pao.exceptions.TransferException;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 abstract public class Client {
-    private final Integer id;
-    private String alias;
-    private final List<Transfer> transfers = new ArrayList<>();
-    private final List<BalanceAccount> accounts = new ArrayList<>();
-    protected final BankIFace bank;
+    protected final Integer id;
+    protected String alias;
+    protected final List<Transfer> transfers = new ArrayList<>();
+    protected final List<BalanceAccount> accounts = new ArrayList<>();
+    protected BankIFace bank;
 
     protected static Integer lastTransactionId = 0;
+
+    public void inject(BankIFace bank) {
+        this.bank = bank;
+    }
 
     public Client(Integer id, String alias, BankIFace bank) {
         this.id = id;
@@ -38,7 +41,7 @@ abstract public class Client {
 
     public List<Transfer> getTransfersBiggerThan(Double amount) {
         return transfers.stream().filter((acc) -> {
-            return acc.amountInSourceCurrency > amount;
+            return acc.getAmountInSourceCurrency() > amount;
         }).collect(Collectors.toList());
     }
 

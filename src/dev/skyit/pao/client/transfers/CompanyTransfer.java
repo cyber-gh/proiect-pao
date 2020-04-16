@@ -1,10 +1,10 @@
-package dev.skyit.pao;
+package dev.skyit.pao.client.transfers;
 
 public class CompanyTransfer extends Transfer {
     public final Double appliedCommision;
 
-    public CompanyTransfer(Integer transactionId, Integer sourceCurrencyId, Integer destinationCurrencyId, String sourceCurrencyCode, String destinationCurrencyCode, Double exchangeRate, Double amount, Double amountInDestinationCurrency, Double appliedCommision) {
-        super(transactionId, sourceCurrencyId, destinationCurrencyId, sourceCurrencyCode, destinationCurrencyCode, exchangeRate, amount, amountInDestinationCurrency);
+    public CompanyTransfer(Integer clientId, Integer transactionId, Integer sourceCurrencyId, Integer destinationCurrencyId, String sourceCurrencyCode, String destinationCurrencyCode, Double exchangeRate, Double amount, Double amountInDestinationCurrency, Double appliedCommision) {
+        super(clientId, transactionId, sourceCurrencyId, destinationCurrencyId, sourceCurrencyCode, destinationCurrencyCode, exchangeRate, amount, amountInDestinationCurrency);
         this.appliedCommision = appliedCommision;
     }
 

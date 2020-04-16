@@ -1,5 +1,8 @@
 package dev.skyit.pao;
 
+import dev.skyit.pao.api.Bank;
+import dev.skyit.pao.client.Client;
+import dev.skyit.pao.client.transfers.Transfer;
 import dev.skyit.pao.exceptions.TransferException;
 
 public class Main {

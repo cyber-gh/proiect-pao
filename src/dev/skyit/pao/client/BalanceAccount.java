@@ -1,4 +1,4 @@
-package dev.skyit.pao;
+package dev.skyit.pao.client;
 
 import java.util.Objects;
 

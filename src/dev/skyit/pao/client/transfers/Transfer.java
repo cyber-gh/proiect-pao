@@ -1,8 +1,9 @@
-package dev.skyit.pao;
+package dev.skyit.pao.client.transfers;
 
 import java.util.Objects;
 
 public class Transfer {
+    protected final Integer clientId;
     protected final Integer transactionId;
     protected final Integer sourceCurrencyId;
     protected final Integer destinationCurrencyId;
@@ -12,7 +13,8 @@ public class Transfer {
     protected final Double amountInSourceCurrency;
     protected final Double amountInDestinationCurrency;
 
-    public Transfer(Integer transactionId, Integer sourceCurrencyId, Integer destinationCurrencyId, String sourceCurrencyCode, String destinationCurrencyCode, Double exchangeRate, Double amount, Double amountInDestinationCurrency) {
+    public Transfer(Integer clientId, Integer transactionId, Integer sourceCurrencyId, Integer destinationCurrencyId, String sourceCurrencyCode, String destinationCurrencyCode, Double exchangeRate, Double amount, Double amountInDestinationCurrency) {
+        this.clientId = clientId;
         this.transactionId = transactionId;
         this.sourceCurrencyId = sourceCurrencyId;
         this.destinationCurrencyId = destinationCurrencyId;

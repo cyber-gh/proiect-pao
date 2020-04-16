@@ -1,14 +1,30 @@
-package dev.skyit.pao;
+package dev.skyit.pao.client;
 
+import dev.skyit.pao.api.BankIFace;
+import dev.skyit.pao.client.transfers.CompanyTransfer;
+import dev.skyit.pao.client.transfers.Transfer;
 import dev.skyit.pao.exceptions.MissingExchangeRateException;
 import dev.skyit.pao.exceptions.TransferException;
 
 public class CompanyClient extends Client {
 
-    private final Double commission = 0.05;
+    private Double commission = 0.05;
 
-    public CompanyClient(Integer id, String alias, BankIFace bank) {
+    @Override
+    public String toString() {
+        return "CompanyClient{" +
+                "commission=" + commission +
+                ", id=" + id +
+                ", alias='" + alias + '\'' +
+                ", transfers=" + transfers +
+                ", accounts=" + accounts +
+                ", bank=" + bank +
+                '}';
+    }
+
+    public CompanyClient(Integer id, String alias,Double commission , BankIFace bank) {
         super(id, alias, bank);
+        this.commission = commission;
     }
 
     @Override
@@ -24,7 +40,7 @@ public class CompanyClient extends Client {
         modifyAccount(destinationId, finalValue);
         String sourceCurrencyCode = bank.getCurrencyById(sourceId).getCode();
         String destinationCurrencyCode = bank.getCurrencyById(destinationId).getCode();
-        Transfer transfer = new CompanyTransfer(lastTransactionId++, sourceId, destinationId, sourceCurrencyCode, destinationCurrencyCode, rate, valueInInitialCurrency, valueInDestinationCurrency, comm);
+        Transfer transfer = new CompanyTransfer(id, lastTransactionId++, sourceId, destinationId, sourceCurrencyCode, destinationCurrencyCode, rate, valueInInitialCurrency, valueInDestinationCurrency, comm);
         addTransfer(transfer);
     }
 }

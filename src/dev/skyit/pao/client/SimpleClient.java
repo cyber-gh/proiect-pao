@@ -1,5 +1,7 @@
-package dev.skyit.pao;
+package dev.skyit.pao.client;
 
+import dev.skyit.pao.api.BankIFace;
+import dev.skyit.pao.client.transfers.Transfer;
 import dev.skyit.pao.exceptions.MissingExchangeRateException;
 import dev.skyit.pao.exceptions.TransferException;
 
@@ -21,7 +23,7 @@ public class SimpleClient extends Client {
         modifyAccount(destinationId, valueInDestinationCurrency);
         String sourceCurrencyCode = bank.getCurrencyById(sourceId).getCode();
         String destinationCurrencyCode = bank.getCurrencyById(destinationId).getCode();
-        Transfer transfer = new Transfer(lastTransactionId++, sourceId, destinationId, sourceCurrencyCode, destinationCurrencyCode, rate, valueInInitialCurrency, valueInDestinationCurrency);
+        Transfer transfer = new Transfer(id, lastTransactionId++, sourceId, destinationId, sourceCurrencyCode, destinationCurrencyCode, rate, valueInInitialCurrency, valueInDestinationCurrency);
         addTransfer(transfer);
     }
 }

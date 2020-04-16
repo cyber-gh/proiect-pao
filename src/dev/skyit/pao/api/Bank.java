@@ -1,5 +1,12 @@
-package dev.skyit.pao;
+package dev.skyit.pao.api;
 
+import dev.skyit.pao.database.Database;
+import dev.skyit.pao.utility.Currency;
+import dev.skyit.pao.utility.Pair;
+import dev.skyit.pao.client.Client;
+import dev.skyit.pao.client.CompanyClient;
+import dev.skyit.pao.client.SimpleClient;
+import dev.skyit.pao.client.transfers.Transfer;
 import dev.skyit.pao.exceptions.TransferException;
 
 import java.util.ArrayList;
@@ -13,20 +20,15 @@ public class Bank implements BankIFace, ServiceIFace {
     private HashMap<Pair, Double> rates = new HashMap<>();
     private List<Client> clients = new ArrayList<>();
 
-    static final Bank shared = new Bank();
+    public static final Bank shared = new Bank();
+
     private Bank() {
-        currencyList.add(new Currency(0, "RON", "Romanian Leu"));
-        currencyList.add(new Currency(1, "USD", "US Dollar"));
-        currencyList.add(new Currency(2, "EUR", "Euro"));
-
-        rates.put(new Pair(0,1), 0.22);
-        rates.put(new Pair(1,0), 4.50);
-
-        rates.put(new Pair(0,2), 0.21);
-        rates.put(new Pair(2, 0), 4.85);
-
-        rates.put(new Pair(1, 2), 0.93);
-        rates.put(new Pair(2, 1), 1.08);
+        var currencies = Database.shared.loadCurrencies();
+        currencyList.addAll(currencies);
+        var lst = Database.shared.loadRates();
+        lst.forEach((rate) -> {
+            rates.put(new Pair(rate.getSourceId(), rate.getDestinationID()), rate.getRate());
+        });
     }
 
     public void addDummyData(){
@@ -34,7 +36,7 @@ public class Bank implements BankIFace, ServiceIFace {
         addClient(new SimpleClient(1, "secretary", shared));
         addClient(new SimpleClient(2, "manager", shared));
 
-        addClient(new CompanyClient(4, "Sky-IT", shared));
+        addClient(new CompanyClient(4, "Sky-IT", 0.05, shared));
 
         currencyList.forEach((currency -> clients.forEach((client -> client.registerAccount(currency.getId())))));
     }
