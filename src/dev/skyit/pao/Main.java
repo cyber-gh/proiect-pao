@@ -9,26 +9,26 @@ public class Main {
 
     public static void main(String[] args) {
         Bank bk = Bank.shared;
-        bk.addDummyData();
+        bk.loadClients();
 
-        Client me = bk.getClientById(0);
+        Integer clientId = 0;
         try {
-            me.makeTransfer(0, 1, 10.0);
-            System.out.println("Success: " + me.getLastTransfer());
+            bk.makeTransferForClient(clientId,0, 1, 10.0);
+            System.out.println("Success: " + bk.getLastTransfer(clientId));
         } catch (TransferException e) {
             System.out.println("Unable to make transfer: " + e.getLocalizedMessage());
         }
 
-        Client company = bk.getClientById(4);
+        Integer companyId = 0;
         try {
-            company.makeTransfer(0, 1, 10.0);
-            System.out.println("Success: " + company.getLastTransfer());
+            bk.makeTransferForClient(companyId,0, 1, 10.0);
+            System.out.println("Success: " + bk.getLastTransfer(companyId));
         } catch (TransferException e) {
             System.out.println("Unable to make transfer: " + e.getLocalizedMessage());
         }
 
-        System.out.println(company.getTotalBalanceInCurrency(0));
-        for (Transfer transfer : company.getTransfersBiggerThan(1000.0)) {
+        System.out.println(bk.getTotalBalanceInCurrency(clientId, 0));
+        for (Transfer transfer : bk.getTransfersBiggerThan(companyId,100.0)) {
             System.out.println(transfer);
         }
     }
