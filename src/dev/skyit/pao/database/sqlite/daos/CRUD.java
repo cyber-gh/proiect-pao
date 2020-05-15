@@ -6,7 +6,7 @@ import dev.skyit.pao.utility.Currency;
 
 import java.util.List;
 
-interface CRUD<T> {
+public interface CRUD<T> {
     public void insert(T element);
     public List<T> readAll();
     public void update(T oldElement, T newElement);

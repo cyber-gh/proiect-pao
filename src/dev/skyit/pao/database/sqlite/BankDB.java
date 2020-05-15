@@ -1,8 +1,11 @@
 package dev.skyit.pao.database.sqlite;
 
 import dev.skyit.pao.client.Client;
+import dev.skyit.pao.database.sqlite.daos.CRUD;
+import dev.skyit.pao.database.sqlite.daos.ConvertersDao;
 import dev.skyit.pao.database.sqlite.daos.CurrenciesDao;
 import dev.skyit.pao.utility.Currency;
+import dev.skyit.pao.utility.CurrencyConvertRate;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,8 +21,9 @@ public class BankDB{
     }
 
     private final Connection connection = connect();
-    private final CurrenciesDao currenciesDao = new CurrenciesDao(connection);
 
+    private final CurrenciesDao currenciesDao = new CurrenciesDao(connection);
+    private final ConvertersDao convertersDao = new ConvertersDao(connection);
 
     private Connection connect() {
         try {
@@ -33,7 +37,11 @@ public class BankDB{
     }
 
 
-    public CurrenciesDao getCurrenciesDao() {
+    public CRUD<Currency> getCurrenciesDao() {
         return currenciesDao;
+    }
+
+    public CRUD<CurrencyConvertRate> getConvertersDao(){
+        return convertersDao;
     }
 }

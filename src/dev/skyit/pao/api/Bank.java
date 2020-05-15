@@ -23,6 +23,7 @@ public class Bank implements BankIFace, ServiceIFace {
     private final Auditor auditor;
 
 
+
     private Bank() {
         var currencies = Database.shared.loadCurrencies();
         currencyList.addAll(currencies);

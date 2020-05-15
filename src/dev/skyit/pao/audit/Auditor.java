@@ -17,9 +17,10 @@ public class Auditor {
     }
 
     public void logQuery(String query) {
+        String threadInfo = Thread.currentThread().getName();
         try {
             Writer output = new BufferedWriter(new FileWriter(logFileName, true));
-            output.write(query + ", " + getTimeStamp() + "\n");
+            output.write(query + ", " + getTimeStamp() + ", ran on thread = " + threadInfo + "\n");
             output.close();
         } catch (IOException e) {
             e.printStackTrace();

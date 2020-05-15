@@ -3,6 +3,7 @@ package dev.skyit.pao;
 import dev.skyit.pao.api.Bank;
 import dev.skyit.pao.client.Client;
 import dev.skyit.pao.client.transfers.Transfer;
+import dev.skyit.pao.database.csv.Database;
 import dev.skyit.pao.database.sqlite.BankDB;
 import dev.skyit.pao.exceptions.TransferException;
 import dev.skyit.pao.utility.Currency;
@@ -14,10 +15,6 @@ public class Main {
         Bank bk = Bank.shared;
         bk.loadClients();
 
-        Currency currency = bk.getCurrencyById(1);
-        Currency newCurrency = bk.getCurrencyById(1);
-        newCurrency.setName("USA Dollar");
-        BankDB.getInstance().getCurrenciesDao().update(currency, newCurrency);
 //        BankDB.getInstance().getCurrenciesDao().delete(currency);
 //        BankDB.getInstance().getCurrenciesDao().insert(currency);
 //        BankDB.getInstance().getCurrenciesDao().readAll().forEach(System.out::println);

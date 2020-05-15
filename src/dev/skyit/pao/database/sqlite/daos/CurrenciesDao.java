@@ -1,11 +1,16 @@
 package dev.skyit.pao.database.sqlite.daos;
 
+import dev.skyit.pao.database.sqlite.statements.CRUDSQLIface;
+import dev.skyit.pao.database.sqlite.statements.CurrencyStatements;
 import dev.skyit.pao.utility.Currency;
 
 import java.sql.Connection;
 import java.util.List;
 
 public class CurrenciesDao extends DatabaseDao implements CRUD<Currency> {
+
+    private final CRUDSQLIface<Currency> sqlBuilder = new CurrencyStatements();
+
     public CurrenciesDao(Connection connection) {
         super(connection);
     }
@@ -13,14 +18,13 @@ public class CurrenciesDao extends DatabaseDao implements CRUD<Currency> {
 
     @Override
     public void insert(Currency element) {
-        String query = "Insert into currencies " +
-                String.format("values(%d, '%s', '%s');", element.getId(), element.getCode(), element.getName());
+        String query = sqlBuilder.insertStatement(element);
         executeUpdateStatement(query);
     }
 
     @Override
     public List<Currency> readAll() {
-        String query = "select * from currencies";
+        String query = sqlBuilder.readAllStatement();
         return executeSelectStatement(query, rs -> {
             Integer id = rs.getInt("id");
             String code = rs.getString("code");
@@ -31,16 +35,14 @@ public class CurrenciesDao extends DatabaseDao implements CRUD<Currency> {
 
     @Override
     public void update(Currency oldElement, Currency newElement) {
-        String query = "update currencies " +
-                String.format("set code='%s', name='%s' ", newElement.getCode(), newElement.getName()) +
-                String.format("where id = %d", oldElement.getId());
+        String query = sqlBuilder.updateStatement(oldElement, newElement);
 
         executeUpdateStatement(query);
     }
 
     @Override
     public void delete(Currency element) {
-        String query = String.format("delete from currencies where id=%d", element.getId());
+        String query = sqlBuilder.deleteStatement(element);
         executeUpdateStatement(query);
     }
 }
