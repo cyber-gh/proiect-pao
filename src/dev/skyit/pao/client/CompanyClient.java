@@ -8,6 +8,10 @@ import dev.skyit.pao.exceptions.TransferException;
 
 public class CompanyClient extends Client {
 
+    public Double getCommission() {
+        return commission;
+    }
+
     private Double commission = 0.05;
 
     @Override
@@ -22,8 +26,8 @@ public class CompanyClient extends Client {
                 '}';
     }
 
-    public CompanyClient(Integer id, String alias,Double commission , BankIFace bank) {
-        super(id, alias, bank);
+    public CompanyClient(Integer id, String alias,Double commission) {
+        super(id, alias);
         this.commission = commission;
     }
 

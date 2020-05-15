@@ -37,3 +37,5 @@ getCurrencyById(), 2020-05-15 15:39:28
 getCurrencyById(), 2020-05-15 15:39:34
 getCurrencyById(), 2020-05-15 15:44:27
 getCurrencyById(), 2020-05-15 15:44:27
+getClientById(), 2020-05-15 17:25:12, ran on thread = main
+getClientById(), 2020-05-15 17:25:33, ran on thread = main

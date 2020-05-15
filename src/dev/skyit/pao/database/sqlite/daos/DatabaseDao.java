@@ -31,19 +31,6 @@ public class DatabaseDao {
         }
     }
 
-    //TODO cast results of query to java object with reflection
-    protected void reflectionMagic() {
-//        var tst = Class.forName("test");
-//        for (Field declaredField : tst.getDeclaredFields()) {
-//            declaredField.getName();
-//            declaredField.getType() instanceof Integer
-//
-//        }
-//        tst.getConstructors()[0].newInstance()
-    }
-
-
-
     protected<T> List<T> executeSelectStatement(String query, DatabaseElementConverter<T> converter) {
         List<T> elements = new ArrayList<>();
         try( Statement stm = connection.createStatement()){

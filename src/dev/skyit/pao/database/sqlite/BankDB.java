@@ -1,9 +1,9 @@
 package dev.skyit.pao.database.sqlite;
 
 import dev.skyit.pao.client.Client;
-import dev.skyit.pao.database.sqlite.daos.CRUD;
-import dev.skyit.pao.database.sqlite.daos.ConvertersDao;
-import dev.skyit.pao.database.sqlite.daos.CurrenciesDao;
+import dev.skyit.pao.client.CompanyClient;
+import dev.skyit.pao.client.SimpleClient;
+import dev.skyit.pao.database.sqlite.daos.*;
 import dev.skyit.pao.utility.Currency;
 import dev.skyit.pao.utility.CurrencyConvertRate;
 
@@ -24,6 +24,8 @@ public class BankDB{
 
     private final CurrenciesDao currenciesDao = new CurrenciesDao(connection);
     private final ConvertersDao convertersDao = new ConvertersDao(connection);
+    private final SimpleClientsDao simpleClientsDao = new SimpleClientsDao(connection);
+    private final CompanyClientsDao companyClientsDao = new CompanyClientsDao(connection);
 
     private Connection connect() {
         try {
@@ -43,5 +45,13 @@ public class BankDB{
 
     public CRUD<CurrencyConvertRate> getConvertersDao(){
         return convertersDao;
+    }
+
+    public CRUD<SimpleClient> getSimpleClientsDao() {
+        return simpleClientsDao;
+    }
+
+    public CRUD<CompanyClient> getCompanyClientsDao() {
+        return companyClientsDao;
     }
 }

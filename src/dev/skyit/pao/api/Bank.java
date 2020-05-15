@@ -2,6 +2,7 @@ package dev.skyit.pao.api;
 
 import dev.skyit.pao.audit.Auditor;
 import dev.skyit.pao.database.csv.Database;
+import dev.skyit.pao.database.sqlite.BankDB;
 import dev.skyit.pao.utility.Currency;
 import dev.skyit.pao.utility.Pair;
 import dev.skyit.pao.client.Client;
@@ -19,15 +20,26 @@ public class Bank implements BankIFace, ServiceIFace {
     private HashMap<Pair, Double> rates = new HashMap<>();
     private List<Client> clients = new ArrayList<>();
 
-    public static final Bank shared = new Bank();
+    private static Bank shared = null;
     private final Auditor auditor;
+
+
+    public static Bank getInstance() {
+        if (shared == null) {
+            shared = new Bank();
+            shared.loadClients();
+        }
+        return shared;
+    }
+
+
 
 
 
     private Bank() {
-        var currencies = Database.shared.loadCurrencies();
+        var currencies = BankDB.getInstance().getCurrenciesDao().readAll();
         currencyList.addAll(currencies);
-        var lst = Database.shared.loadRates();
+        var lst =  BankDB.getInstance().getConvertersDao().readAll();
         lst.forEach((rate) -> {
             rates.put(new Pair(rate.getSourceId(), rate.getDestinationID()), rate.getRate());
         });
@@ -38,13 +50,13 @@ public class Bank implements BankIFace, ServiceIFace {
 
     }
 
-    public void loadClients(){
-        var simpleClients = Database.shared.loadSimpleClients();
-        var companyClients = Database.shared.loadCompanyClients();
+    private void loadClients(){
+        var simpleClients = BankDB.getInstance().getSimpleClientsDao().readAll();
+        var companyClients = BankDB.getInstance().getCompanyClientsDao().readAll();
         clients.addAll(companyClients);
         clients.addAll(simpleClients);
         clients.forEach(client -> {
-            client.inject(shared);
+            client.inject(this);
         });
 
         currencyList.forEach((currency -> clients.forEach((client -> client.registerAccount(currency.getId())))));
@@ -111,6 +123,11 @@ public class Bank implements BankIFace, ServiceIFace {
     public List<Transfer> getTransfersBiggerThan(Integer clientId, Double amount) {
         auditor.logQuery("getTransfersBiggerThan()");
         return getClientById(clientId).getTransfersBiggerThan(amount);
+    }
+
+    @Override
+    public List<Client> getAllClients() {
+        return clients;
     }
 
     @Override

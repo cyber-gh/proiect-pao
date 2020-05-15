@@ -21,10 +21,9 @@ abstract public class Client {
         this.bank = bank;
     }
 
-    public Client(Integer id, String alias, BankIFace bank) {
+    public Client(Integer id, String alias) {
         this.id = id;
         this.alias = alias;
-        this.bank = bank;
     }
 
     public Double getTotalBalanceInCurrency(Integer currencyId) {

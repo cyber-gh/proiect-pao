@@ -9,8 +9,8 @@ public class SimpleClient extends Client {
 
 
 
-    public SimpleClient(Integer id, String alias, BankIFace bank) {
-        super(id, alias, bank);
+    public SimpleClient(Integer id, String alias) {
+        super(id, alias);
     }
 
     @Override

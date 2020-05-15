@@ -25,4 +25,6 @@ public interface ServiceIFace {
 
     List<Transfer> getTransfersBiggerThan(Integer clientId,
                                           Double amount);
+
+    List<Client> getAllClients();
 }

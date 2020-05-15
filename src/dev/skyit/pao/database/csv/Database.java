@@ -64,8 +64,7 @@ public class Database {
     public List<SimpleClient> loadSimpleClients() {
         return read("persistence/clients.csv", components -> {
             return new SimpleClient(Integer.parseInt(components[0]),
-                    components[1],
-                    null);
+                    components[1]);
         });
     }
 
@@ -73,8 +72,7 @@ public class Database {
         return read("persistence/companies.csv", components -> {
             return new CompanyClient(Integer.parseInt(components[0]),
                     components[1],
-                    Double.parseDouble(components[2]),
-                    null);
+                    Double.parseDouble(components[2]));
         });
     }
 }
