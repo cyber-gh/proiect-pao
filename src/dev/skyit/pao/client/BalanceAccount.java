@@ -3,6 +3,7 @@ package dev.skyit.pao.client;
 import java.util.Objects;
 
 public class BalanceAccount {
+    private final Integer clientID;
     private final Integer currencyId;
     private Double amount;
 
@@ -44,7 +45,8 @@ public class BalanceAccount {
         this.amount += amount;
     }
 
-    public BalanceAccount(Integer currencyId, Double amount) {
+    public BalanceAccount(Integer clientID, Integer currencyId, Double amount) {
+        this.clientID = clientID;
         this.currencyId = currencyId;
         this.amount = amount;
     }

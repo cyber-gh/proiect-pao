@@ -65,7 +65,7 @@ abstract public class Client {
     }
 
     public void registerAccount(Integer currencyId) {
-        accounts.add(new BalanceAccount(currencyId, 20.0));
+        accounts.add(new BalanceAccount(id, currencyId, 20.0));
     }
 
     protected void addTransfer(Transfer transfer) {

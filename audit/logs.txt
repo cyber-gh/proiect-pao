@@ -24,3 +24,16 @@ getExchangeRAte(), 2020-04-16 12:12:34
 getExchangeRAte(), 2020-04-16 12:12:34
 getTransfersBiggerThan(), 2020-04-16 12:12:34
 getClientById(), 2020-04-16 12:12:34
+getCurrencyById(), 2020-05-15 14:47:08
+getCurrencyById(), 2020-05-15 14:48:05
+getCurrencyById(), 2020-05-15 14:49:01
+getCurrencyById(), 2020-05-15 14:49:36
+getCurrencyById(), 2020-05-15 14:50:02
+getCurrencyById(), 2020-05-15 14:50:15
+getCurrencyById(), 2020-05-15 14:50:51
+getCurrencyById(), 2020-05-15 14:53:09
+getCurrencyById(), 2020-05-15 15:38:43
+getCurrencyById(), 2020-05-15 15:39:28
+getCurrencyById(), 2020-05-15 15:39:34
+getCurrencyById(), 2020-05-15 15:44:27
+getCurrencyById(), 2020-05-15 15:44:27

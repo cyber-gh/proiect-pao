@@ -1,12 +1,10 @@
 package dev.skyit.pao.api;
 
 import dev.skyit.pao.audit.Auditor;
-import dev.skyit.pao.database.Database;
+import dev.skyit.pao.database.csv.Database;
 import dev.skyit.pao.utility.Currency;
 import dev.skyit.pao.utility.Pair;
 import dev.skyit.pao.client.Client;
-import dev.skyit.pao.client.CompanyClient;
-import dev.skyit.pao.client.SimpleClient;
 import dev.skyit.pao.client.transfers.Transfer;
 import dev.skyit.pao.exceptions.TransferException;
 
@@ -23,6 +21,7 @@ public class Bank implements BankIFace, ServiceIFace {
 
     public static final Bank shared = new Bank();
     private final Auditor auditor;
+
 
     private Bank() {
         var currencies = Database.shared.loadCurrencies();

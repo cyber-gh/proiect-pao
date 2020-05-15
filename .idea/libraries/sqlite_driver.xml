@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="sqlite-driver">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/dev/skyit/pao/database/sqlite/driver/sqlite-driver.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
