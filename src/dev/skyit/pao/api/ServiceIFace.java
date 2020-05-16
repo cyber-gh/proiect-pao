@@ -3,6 +3,7 @@ package dev.skyit.pao.api;
 import dev.skyit.pao.client.Client;
 import dev.skyit.pao.client.transfers.Transfer;
 import dev.skyit.pao.exceptions.TransferException;
+import dev.skyit.pao.utility.CurrencyModel;
 
 import java.util.List;
 
@@ -27,4 +28,8 @@ public interface ServiceIFace {
                                           Double amount);
 
     List<Client> getAllClients();
+
+    List<CurrencyModel> getCurrencyConvertTable();
+
+    List<Transfer> getAllTransfers(Integer clientId);
 }

@@ -15,6 +15,10 @@ abstract public class Client {
     protected final List<BalanceAccount> accounts = new ArrayList<>();
     protected BankIFace bank;
 
+    public List<BalanceAccount> getAccounts() {
+        return accounts;
+    }
+
     protected static Integer lastTransactionId = 0;
 
     public void inject(BankIFace bank) {
@@ -44,6 +48,10 @@ abstract public class Client {
         }).collect(Collectors.toList());
     }
 
+    public List<Transfer> getAllTransfers() {
+        return transfers;
+    }
+
     public abstract void makeTransfer(Integer sourceId, Integer destinationId, Double amount) throws TransferException;
 
     public Transfer getLastTransfer() {
@@ -64,7 +72,7 @@ abstract public class Client {
     }
 
     public void registerAccount(Integer currencyId) {
-        accounts.add(new BalanceAccount(id, currencyId, 20.0));
+        accounts.add(new BalanceAccount(id, currencyId, 100.0));
     }
 
     protected void addTransfer(Transfer transfer) {

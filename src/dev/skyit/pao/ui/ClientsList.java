@@ -18,7 +18,7 @@ public class ClientsList extends JFrame {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
-        setSize(600, 600);
+        setSize(800, 800);
 
         selectLabel.setBackground(Color.CYAN);
 
@@ -28,7 +28,7 @@ public class ClientsList extends JFrame {
             var label = new JLabel(value.getAlias(), SwingConstants.CENTER);
             label.setFont(new Font("Serif", Font.PLAIN, 20));
             if (isSelected){
-                label.setBackground(Color.BLUE);
+                label.setForeground(Color.BLUE);
             }
             return label;
         });

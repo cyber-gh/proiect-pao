@@ -4,6 +4,7 @@ import dev.skyit.pao.audit.Auditor;
 import dev.skyit.pao.database.csv.Database;
 import dev.skyit.pao.database.sqlite.BankDB;
 import dev.skyit.pao.utility.Currency;
+import dev.skyit.pao.utility.CurrencyModel;
 import dev.skyit.pao.utility.Pair;
 import dev.skyit.pao.client.Client;
 import dev.skyit.pao.client.transfers.Transfer;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Bank implements BankIFace, ServiceIFace {
 
@@ -127,7 +129,22 @@ public class Bank implements BankIFace, ServiceIFace {
 
     @Override
     public List<Client> getAllClients() {
+        auditor.logQuery("getAllClients()");
         return clients;
+    }
+
+    @Override
+    public List<CurrencyModel> getCurrencyConvertTable() {
+        auditor.logQuery("getCurrencyConvertTable()");
+        return BankDB.getInstance().getConvertersDao().readAll().stream().map(c -> {
+            return new CurrencyModel(getCurrencyById(c.getSourceId()), getCurrencyById(c.getDestinationID()), c.getRate());
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Transfer> getAllTransfers(Integer clientId) {
+        auditor.logQuery("getAllTransfers()");
+        return getClientById(clientId).getAllTransfers();
     }
 
     @Override
